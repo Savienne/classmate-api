@@ -4,6 +4,10 @@ function addTask(req, res) {
   Profile.findById(req.user.profile)
   .then(profile => {
     profile.tasks.push(req.body)
+    const sortedTasks = profile.tasks.sort((taskOne, taskTwo) => 
+        taskOne.priority - taskTwo.priority
+    )
+    profile.tasks = sortedTasks
     profile.save()
     .then(updatedProfile => {
       res.json(updatedProfile)
