@@ -11,5 +11,6 @@ const router = Router()
 router.use(decodeUserFromToken)
 router.get('/', checkAuth, profilesCtrl.showProfile)
 router.patch("/", checkAuth, profilesCtrl.addTask)
+router.delete("/:id", checkAuth, profilesCtrl.deleteTask)
 
 export { router }

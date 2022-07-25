@@ -26,7 +26,23 @@ function showProfile(req, res) {
   })
 }
 
+function deleteTask(req, res) {
+  Profile.findById(req.user.profile)
+  .then(profile => {
+    profile.tasks.id(req.params.id).remove()
+    profile.save()
+    .then(updatedProfile => {
+      res.json(updatedProfile)
+    })
+  })
+  .catch((err) => {
+    console.log(err)
+    res.status(500).json({ err: err.errmsg })
+  })
+}
+
 export { 
   addTask,
-  showProfile
+  showProfile,
+  deleteTask
 }
