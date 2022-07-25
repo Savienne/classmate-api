@@ -12,5 +12,6 @@ router.use(decodeUserFromToken)
 router.get('/', checkAuth, profilesCtrl.showProfile)
 router.patch("/", checkAuth, profilesCtrl.addTask)
 router.delete("/:id", checkAuth, profilesCtrl.deleteTask)
+router.patch("/:id/edit", checkAuth, profilesCtrl.editTask)
 
 export { router }
