@@ -66,9 +66,25 @@ function editTask(req, res) {
   })
 }
 
+function deleteAllTasks(req, res) {
+  Profile.findById(req.user.profile)
+  .then(profile => {
+    profile.tasks = []
+    profile.save()
+    .then(updatedProfile => {
+      res.json(updatedProfile)
+    })
+  })
+  .catch((err) => {
+    console.log(err)
+    res.status(500).json({ err: err.errmsg })
+  })
+}
+
 export { 
   addTask,
   showProfile,
   deleteTask,
-  editTask
+  editTask,
+  deleteAllTasks
 }
