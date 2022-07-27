@@ -28,7 +28,27 @@ function index(req, res) {
   })
 }
 
+function deleteTip(req, res) {
+  Tip.findById(req.params.id)
+  .then(tip => {
+    if (tip.owner._id.equals(req.user.profile)) {
+      Tip.findByIdAndDelete(tip._id)
+      .then(deletedTip => {
+        res.json(deletedTip)
+      })
+    }
+    else {
+      res.status(401).json({err: "Not authorized!"})
+    }
+  })
+  .catch((err) => {
+    console.log(err)
+    res.status(500).json({err: err.errmsg})
+  })
+}
+
 export {
   create,
-  index
+  index,
+  deleteTip as delete
 }
