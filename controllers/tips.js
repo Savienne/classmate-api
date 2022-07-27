@@ -16,6 +16,19 @@ function create(req, res) {
   })
 }
 
-export { 
-  create
+function index(req, res) {
+  Tip.find({})
+  .populate("owner")
+  .then(tips => {
+    res.json(tips)
+  })
+  .catch((err) => {
+    console.log(err)
+    res.status(500).json({err: err.errmsg})
+  })
+}
+
+export {
+  create,
+  index
 }
